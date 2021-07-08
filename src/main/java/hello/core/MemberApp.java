@@ -7,7 +7,9 @@ import hello.core.member.repository.MemberService;
 
 public class MemberApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService(); //// AppConfig로 인해 더이상 Impl을 의존하지 않는다.
+
 
         Member member = new Member(1L, "Donggyu", Grade.VIP);
 

@@ -11,10 +11,16 @@ import hello.core.order.repository.OrderService;
 
 public class OrderServiceImpl implements OrderService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository(); // 현재 구현체에 의존하고 있음을 알 수 있다.
-//    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-    private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); // <---- 할인 정책 변경을 위해 주문서비스 구현체를 변경해야 한다.
+    private final MemberRepository memberRepository; // 현재 구현체에 의존하고 있음을 알 수 있다.
+    private final DiscountPolicy discountPolicy;
 
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
+
+    //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();// <---- 할인 정책 변경을 위해 주문서비스 구현체를 변경해야 한다.
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);
