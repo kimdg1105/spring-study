@@ -11,7 +11,7 @@ import hello.core.order.repository.OrderService;
 
 public class OrderServiceImpl implements OrderService {
 
-    private final MemberRepository memberRepository; // 현재 구현체에 의존하고 있음을 알 수 있다.
+    private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
