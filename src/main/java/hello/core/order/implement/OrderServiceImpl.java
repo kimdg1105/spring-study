@@ -1,5 +1,6 @@
 package hello.core.order.implement;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
@@ -8,15 +9,18 @@ import hello.core.member.implement.MemoryMemberRepository;
 import hello.core.member.repository.MemberRepository;
 import hello.core.order.Order;
 import hello.core.order.repository.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 
 @Component
+//@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-    private MemberRepository memberRepository; // final -> 무조건 값이 있어야 함.
-    private DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository; // final -> 무조건 값이 있어야 함.
+    private final DiscountPolicy discountPolicy;
 
 
 //  수정자(setter)를 통한 의존성 주입, 중간에 인스턴스의 변경이 가능함
@@ -35,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
